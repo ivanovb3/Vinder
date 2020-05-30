@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string("profile_pic");
             $table->integer("age");
+            $table->string('gender');
             $table->integer("matches");
             $table->text("bio");
 

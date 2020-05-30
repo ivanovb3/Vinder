@@ -82,6 +82,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
+                    {{session('data')}}
                 </div>
 
                 <div class="links">
