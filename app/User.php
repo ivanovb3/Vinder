@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Match;
 
 
 class User extends Model
@@ -24,6 +25,20 @@ class User extends Model
    }
 
    function getData($email){
-      return User::where('email', $email)->get();
+      return User::where('email', $email)->first();
+   }
+
+   function getNewMatch(){
+      //if(Match::getMatch(session('data')['id'], )
+      $usersForMatch = User::where('gender', '!=' ,session('data')['gender'])->get();
+      $match = new Match();
+      $idFrom = session('data')['id'];
+      foreach($usersForMatch as $userForMatch){
+      if(!$match->getMatch($idFrom, $userForMatch->id)){
+         return $userForMatch;
+      }
+   }
+
+      //return $match;
    }
 }

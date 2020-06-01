@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
 Route::view('register', 'register');
 Route::post('register', 'UserController@register');
 Route::view('login', 'login');
 Route::post('login', 'UserController@login');
+//Route::view('/', 'homepage');
+Route::get('/', 'UserController@getNewMatch');
+Route::post('approve', 'MatchController@approve');
+Route::post('notApprove', 'MatchController@notApprove');

@@ -23,7 +23,7 @@ class UserController extends Controller
         $user = new User;
         if(!$user->checkEmail($req->email))
         {
-        $path = $req->file('img')->store('ProfilePics');
+        $path = $req->file('img')->store('ProfilePics', ['disk' => 'public']);
         $user->name = $req->name;
         $user->email = $req->email;
         $user->password = $req->password;
@@ -51,6 +51,7 @@ class UserController extends Controller
         $user = new User();
         if($user->checkEmail($req->email)){
             if($user->checkPassword($req->email) == $req->password){
+                //$data = array();                
                 $data = $user->getData($req->email);
                 $req->session()->put('data', $data);
                 return redirect('/');
@@ -62,5 +63,11 @@ class UserController extends Controller
         else{
             return view('login')->withErrors(["email"=>"This email does not exist!"]);
         } 
+    }
+
+    function getNewMatch(){
+        $user = new User();
+        $match = $user->getNewMatch();
+        return view('/homepage', ['match' => $match]);
     }
 }
