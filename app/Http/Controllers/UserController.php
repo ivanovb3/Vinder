@@ -57,17 +57,23 @@ class UserController extends Controller
                 return redirect('/');
             }
             else {
-                return view('login')->withErrors(["password"=>"Wrong password!"]);
+                return view('login')->withErrors(["failed"=>"Wrong email or password!"]);
             }
         }
         else{
-            return view('login')->withErrors(["email"=>"This email does not exist!"]);
+            return view('login')->withErrors(["failed"=>"Wrong email or password!"]);
         } 
     }
 
-    function getNewMatch(){
+    function show(){
         $user = new User();
         $match = $user->getNewMatch();
-        return view('/homepage', ['match' => $match]);
+        $pairs = $user->getPairedPeople();
+        return view('/homepage', ['match' => $match, 'pairs' => $pairs]);
+    }
+
+    function logout(){
+        session()->forget('data');
+        return redirect('login');
     }
 }

@@ -18,8 +18,8 @@ class CreateMessagesTable extends Migration
             $table->foreignId('user_from_id');
             $table->foreignId('user_to_id');
             $table->text("message");  
-            $table->dateTime('created_at', 0);          
-            //$table->timestamps('published_at');
+            //$table->dateTime('created_at', 0);          
+            $table->timestamps();
         });
     }
 

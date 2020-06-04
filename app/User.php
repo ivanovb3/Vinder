@@ -11,34 +11,48 @@ class User extends Model
    protected $table = 'users';
    public $timestamps = false;
 
-   function checkEmail($email){
+   function checkEmail($email)
+   {
       $result = User::where('email', $email)->get();
-     // if($result != null && count($result)){
-      if ($result->first()) { 
-      return $result[0]->email;
-   }
+      // if($result != null && count($result)){
+      if ($result->first()) {
+         return $result[0]->email;
+      }
    }
 
-   function checkPassword($email){
+   function checkPassword($email)
+   {
       $user = User::where('email', $email)->get();
       return $user[0]->password;
    }
 
-   function getData($email){
+   function getData($email)
+   {
       return User::where('email', $email)->first();
    }
 
-   function getNewMatch(){
+   function getNewMatch()
+   {
       //if(Match::getMatch(session('data')['id'], )
-      $usersForMatch = User::where('gender', '!=' ,session('data')['gender'])->get();
+      $usersForMatch = User::where('gender', '!=', session('data')['gender'])->get();
       $match = new Match();
       $idFrom = session('data')['id'];
-      foreach($usersForMatch as $userForMatch){
-      if(!$match->getMatch($idFrom, $userForMatch->id)){
-         return $userForMatch;
+      foreach ($usersForMatch as $userForMatch) {
+         if (!$match->checkMatch($idFrom, $userForMatch->id)) {
+            return $userForMatch;
+         }
       }
    }
-
-      //return $match;
+   function getPairedPeople(){
+      $usersForPair = User::where('gender', '!=', session('data')['gender'])->get();
+      $match = new Match();
+      $idFrom = session('data')['id'];
+      $pairs = array();
+      foreach ($usersForPair as $userForPair) {
+         if ($match->checkPairedPeople($idFrom, $userForPair->id)) {
+            $pairs[] = $userForPair;
+         }
+      }
+      return $pairs;
    }
 }

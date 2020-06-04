@@ -16,12 +16,19 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('welcome');
 }); */
-
-Route::view('register', 'register');
-Route::post('register', 'UserController@register');
-Route::view('login', 'login');
-Route::post('login', 'UserController@login');
-//Route::view('/', 'homepage');
-Route::get('/', 'UserController@getNewMatch');
-Route::post('approve', 'MatchController@approve');
-Route::post('notApprove', 'MatchController@notApprove');
+Route::group(['middleware' => "web"],function(){
+    Route::view('register', 'register');
+    Route::post('register', 'UserController@register');
+    Route::view('login', 'login');
+    Route::post('login', 'UserController@login');
+    Route::get('/', 'UserController@show');
+    Route::post('approve', 'MatchController@approve');
+    Route::post('notApprove', 'MatchController@notApprove');
+    Route::get('messages/{id2}', 'MessageController@show');
+    Route::post('messages/addMessage', 'MessageController@addMessage');
+    Route::get('logout', 'UserController@logout');
+});
+    //Route::view('/', 'homepage');
+//Route::get('messages/{id2}', 'MessageController@getMessages');
+//Route::get('/messages', 'MessageController@show');
+//Route::get(uri: 'messages/{id2}', action:'MessageController@show');

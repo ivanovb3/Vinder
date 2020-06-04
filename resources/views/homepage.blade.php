@@ -1,15 +1,7 @@
-
-
 @extends('navbar.nav')
 
 @section('content')
-<div class="profileBar">
-    <img src="storage/{{session('data')['profile_pic']}}" alt="fail">
-    <p>{{session('data')['name']}}</p>
-    <p>Matches: {{session('data')['matches']}}</p>
-</div>
-
-
+@include('includes._profileBar')
 <div class="newMatches">
 <h1>Your new matches:</h1>
 <br> <br> <br>
@@ -20,41 +12,33 @@
 <form action="approve" method="post">
 @csrf  
 <input type="hidden" name="idToApprove" value="{{$match['id']}}">
-<input type="submit" name="approveButton" value="Approve" class="approveBtn">
+<button type="submit">Approve</button>
 </form>
 <form action="notApprove" method="post">
 @csrf  
 <input type="hidden" name="idToNotApprove" value="{{$match['id']}}">
-<input type="submit" name="notApproveButton" value="Not Approve" class="notApproveBtn">
+<button type="submit">Not approve</button>
 </form>
 @else
 <h2>Currently no new matches</h2>
 @endif
 </div>
 
-
+@include('includes._rightMatchesBar')
 @stop
 
 <style>
-    .profileBar {
-        width: 17%;
-        height: 100%;
-        float: left;
-        position: relative;
-        background-color: #F0F8FF;
-        border-right: 10px solid #FFF8FD;
-        color: #708090;
-        margin-right: 4%;
+    .newMatches{
+        float:left;
+        flex: 1;
     }
-    .profileBar img{
-        width: 60%;
-        margin: 20%;
-        border: 5px solid #FFF8FD;
-        border-radius: 100px;
-
-    } 
     .newMatches img{
         min-height: 50vmin;
         max-height: 50vmin;
     }
+    .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
 </style>
