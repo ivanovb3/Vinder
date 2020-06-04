@@ -10,7 +10,7 @@
     </header>
     <div class="messages" id="messages">
         @if($countMessages > 0)
-        @foreach($pairMessages as $message)
+        @foreach($pairMessages as $message)        
         @if($message['user_from_id'] == session('data')['id'])
         <div class="messageFromCurrentUser">
             <p>{{$message['message']}}</p>
