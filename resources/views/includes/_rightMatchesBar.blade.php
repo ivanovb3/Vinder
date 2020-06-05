@@ -27,10 +27,10 @@
     .matchPairs {
         margin-top: 6%;
         margin-right: 3%;
+        height: 70%;
         overflow-y: scroll;
         overflow: auto;
         float: right;
-
     }
 
     .pairs {
@@ -40,6 +40,7 @@
         background-color: lightblue;
         border-radius: 20px;
         padding: 3px;
+        
     }
 
     .matchPairs img {

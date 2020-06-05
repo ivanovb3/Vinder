@@ -3,26 +3,36 @@
 @section('content')
 @include('includes._profileBar')
 <div class="messagesContent">
-    <!--{{$pairMessages}}-->
     <header>
         <img src="../storage/{{$currentPair['profile_pic']}}" alt="fail">
         <span>{{$currentPair['name']}}</span>
     </header>
     <div class="messages" id="messages">
         @if($countMessages > 0)
+        @php ($avatar = 1)        <!-- some variable used to only display the avatar in consequently messages once -->
         @foreach($pairMessages as $message)        
         @if($message['user_from_id'] == session('data')['id'])
         <div class="messageFromCurrentUser">
             <p>{{$message['message']}}</p>
             <p class="timeAgo">{{ \Carbon\Carbon::parse($message['created_at'])->diffForHumans() }}</p>
         </div>
+        @php ($avatar = 1)
         @else
         <span>
+        @if($avatar == 1)     <!-- if true display the message with avatar   -->
             <img src="../storage/{{$currentPair['profile_pic']}}" alt="fail" class="avatar">
             <div class="messageToCurrentUser">
                 <p>{{$message['message']}}</p>
                 <p class="timeAgo">{{ \Carbon\Carbon::parse($message['created_at'])->diffForHumans() }}</p>
             </div>
+            @php ($avatar = 0)
+            @else             <!-- if not(there are atleast 2 messages in a row from the other person) display message without avatar-->
+            <div class="messageToCurrentUser" style="margin-left: 4%;">
+                <p>{{$message['message']}}</p>
+                <p class="timeAgo">{{ \Carbon\Carbon::parse($message['created_at'])->diffForHumans() }}</p>
+            </div>
+            @endif
+            
         </span>
         @endif
         @endforeach
@@ -102,7 +112,7 @@
         border-color: transparent;
         background-color: lightgreen;
         border-radius: 20px;
-        padding: 3px;
+        padding: 3px;       
     }
 
     header img {
@@ -121,7 +131,7 @@
         border-radius: 100px;
         float: left;
         flex: 0;
-        width: 4%;
+        width: 4%;        
     }
 
     header {
