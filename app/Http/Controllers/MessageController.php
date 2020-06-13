@@ -6,7 +6,9 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Http\Request;
 use App\Message;
 use App\User;
+//use Illuminate\Auth\Access\Gate;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Illuminate\Support\Facades\Gate;
 
 class MessageController extends Controller
 {
@@ -22,6 +24,7 @@ class MessageController extends Controller
         //return redirect()->route( 'messages.show' )->with( [ 'id' => $id ] );
     } */
     function show($id2){
+        //if(Gate::allows("open-messages", $id2)){
         $message = new Message();
         $user = new User();
         $pairs = $user->getPairedPeople();
@@ -31,6 +34,10 @@ class MessageController extends Controller
         $currentPair = User::where('id', $id2)->first();
 
         return view('messages', ['pairMessages' => $messages, 'pairs' =>$pairs, 'currentPair'=>$currentPair, 'countMessages'=>$count]); 
+       /* }
+        else{
+            echo 'sho';
+        } */
         // return redirect('messages')->with( ['pairMessages' => $messages, 'pairs' => $pairs]); 
         
         /*$messages = Session::get('messages');

@@ -1,0 +1,56 @@
+$('#divChangeName').hide();
+$('#divChangePassword').hide();
+$('#goBack').hide();
+$('#divChangeBio').hide();
+$('#divChangePicture').hide();
+
+$('#btnChangeName').click(
+    function(){
+        $('#divInfo').hide();
+        $('#divChangePassword').hide();
+        $('#divChangeName').show();
+        $('#goBack').show();
+        $('#divChangeBio').hide();
+        $('#divChangePicture').hide();
+    }
+)
+$('#goBack').click(
+    function(){
+        $('#divInfo').show();
+        $('#divChangePassword').hide();
+        $('#divChangeName').hide();
+        $('#goBack').hide();
+        $('#divChangeBio').hide();
+        $('#divChangePicture').hide();
+    }
+)
+$('#btnChangePassword').click(
+    function(){
+        $('#divInfo').hide();
+        $('#divChangePassword').show();
+        $('#divChangeName').hide();
+        $('#goBack').show();
+        $('#divChangeBio').hide();
+        $('#divChangePicture').hide();
+    }
+)
+$('#btnChangeBio').click(
+    function(){
+        $('#divInfo').hide();
+        $('#divChangePassword').hide();
+        $('#divChangeName').hide();
+        $('#goBack').show();
+        $('#divChangeBio').show();
+        $('#divChangePicture').hide();
+    }
+)
+$('#btnChangePicture').click(
+    function(){
+        $('#divInfo').hide();
+        $('#divChangePassword').hide();
+        $('#divChangeName').hide();
+        $('#goBack').show();
+        $('#divChangeBio').hide();
+        $('#divChangePicture').show();
+    }
+)

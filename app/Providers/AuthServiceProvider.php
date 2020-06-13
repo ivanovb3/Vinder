@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define("open-messages", function($id){
+            return 1 == 1;
+            /*$user = new User();
+            $pairs = $user->getPairedPeople();
+            foreach($pairs as $pair){
+                if($pair['user_to_id'] == $id){
+                    return true;
+                }
+            } 
+            return false; */
+        }); 
         //
     }
 }

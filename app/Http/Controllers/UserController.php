@@ -72,10 +72,83 @@ class UserController extends Controller
         return view('/homepage', ['match' => $match, 'pairs' => $pairs]);
     }
 
+    function showProfilePage()
+    {
+        $user = new User();
+        $match = $user->getNewMatch();
+        $pairs = $user->getPairedPeople();
+        return view('/profile', ['match' => $match, 'pairs' => $pairs]);
+    }
+
     function logout()
     {
         session()->forget('data');
         return redirect('login');
+    }
+
+    function updateName(Request $req)
+    {
+        $user =  User::where('id', session('data')['id'])->firstOrFail();
+        $user->name = $req->newName;
+        $user->save();
+        session('data')['name'] = $user->name;
+        $req->session()->flash('newChange', 'Your Name has been updated');
+        return redirect('/profile');
+    }
+    function updateBio(Request $req)
+    {
+        $user =  User::where('id', session('data')['id'])->firstOrFail();
+        $user->bio = $req->newBio;
+        $user->save();
+        session('data')['bio'] = $user->bio;
+        $req->session()->flash('newChange', 'Your bio has been updated!');
+        return redirect('/profile');
+    }
+
+    function updatePassword(Request $req)
+    {
+        //if(strlen($req->confirmNewPassword) < 5 && strlen($req->newPassword) < 5 && strlen($req->oldPassword) < 5)
+        if($req->confirmNewPassword != "" && $req->newPassword != "" && $req->oldPassword != "")
+        {
+        $user =  User::where('id', session('data')['id'])->firstOrFail();
+        if ($req->oldPassword == session('data')['password']) {
+            if ($req->newPassword == $req->confirmNewPassword) {
+                if($req->newPassword != session('data')['password']){
+                $user->password = $req->newPassword;
+                $user->save();
+                session('data')['password'] = $user->password;
+                $req->session()->flash('newChange', 'Your password has been updated!');
+                return redirect('/profile');}
+                else{
+                    $req->session()->flash('newChange', 'Your new password is same as the old password!');
+                    return redirect('/profile');
+                }
+            } else {
+                $req->session()->flash('newChange', 'Passwords do not match!');
+                return redirect('/profile');
+            }
+        } else {
+            $req->session()->flash('newChange', 'Your old password do not match!');
+            return redirect('/profile');
+        }
+    }
+    else{
+        $req->session()->flash('newChange', 'Atleast one field is less than 5 characters!');
+            return redirect('/profile');
+    }
+
+    }
+
+    function updatePicture(Request $req){
+        $req->validate([
+            'newPicture' => 'required'
+        ]);
+        $user =  User::where('id', session('data')['id'])->firstOrFail();
+        $path = $req->file('newPicture')->store('ProfilePics', ['disk' => 'public']);
+        $user->profile_pic = $path;
+        $user->save();
+        session('data')['profile_pic'] = $user->profile_pic;
+        return redirect('/profile'); 
     }
 }
 

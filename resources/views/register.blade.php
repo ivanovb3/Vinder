@@ -17,28 +17,28 @@
         @csrf
         <input type="text" name="name" placeholder="Name. People will see you with this name"> <br>
         @error('name')
-        <span style="color:red">{{$message}}</span>
-        <br> <br>
+        <span class="error">{{$message}}</span>
+        <br> 
         @enderror        
         <input type="text" name="email" placeholder="Email"> <br>
         @error('email')
-        <span style="color:red">{{$message}}</span>
-        <br> <br>
+        <span class="error">{{$message}}</span>
+        <br> 
         @enderror        
         <input type="password" name="password" placeholder="password"> <br>
         @error('password')
-        <span style="color:red">{{$message}}</span>
-        <br> <br>
+        <span class="error">{{$message}}</span>
+        <br> 
         @enderror        
         <input type="password" name="confirmPassword" placeholder="confirm password"> <br>
         @error('confirmPassword')
-        <span style="color:red">{{$message}}</span>
-        <br> <br>
+        <span class="error">{{$message}}</span>
+        <br> 
         @enderror        
         <input type="text" name="age" placeholder="age"> <br>
         @error('age')
-        <span style="color:red">{{$message}}</span>
-        <br> <br>
+        <span class="error">{{$message}}</span>
+        <br> 
         @enderror
         
         <label for="gender">gender:</label>
@@ -47,12 +47,13 @@
         <option value="female">female</option>
          </select> 
          @error('gender')
-        <span style="color:red">{{$message}}</span>
+        <span class="error">{{$message}}</span>
         @enderror
-         <br> <br>
-         <input type="file" name="img"> <br>
+         <br>
+         <p>Choose profile picture</p>
+         <input type="file" name="img"><br>
          @error('img')
-        <span style="color:red">{{$message}}</span>
+        <span class="error">{{$message}}</span>
         @enderror
          <br> <br>
          <button type="submit">Register</button>
@@ -64,6 +65,10 @@
 </div>
 </body>
 </html>
-<style type=”text/css”>
 
+<style>
+.error{
+    color:red;
+    font-size: x-small;
+}
 </style>

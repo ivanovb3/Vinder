@@ -24,9 +24,14 @@ Route::group(['middleware' => "web"],function(){
     Route::get('/', 'UserController@show');
     Route::post('approve', 'MatchController@approve');
     Route::post('notApprove', 'MatchController@notApprove');
-    Route::get('messages/{id2}', 'MessageController@show');
+    Route::get('messages/{id2}', 'MessageController@show')->middleware('checkPairs');
     Route::post('messages/addMessage', 'MessageController@addMessage');
     Route::get('logout', 'UserController@logout');
+    Route::get('profile', 'UserController@showProfilePage');
+    Route::get('updateName', 'UserController@updateName');
+    Route::get('updateBio', 'UserController@updateBio');
+    Route::get('changePassword', 'UserController@updatePassword');
+    Route::post('updatePicture', 'UserController@updatePicture');
 });
     //Route::view('/', 'homepage');
 //Route::get('messages/{id2}', 'MessageController@getMessages');
