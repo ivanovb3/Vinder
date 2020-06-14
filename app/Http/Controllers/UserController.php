@@ -88,12 +88,17 @@ class UserController extends Controller
 
     function updateName(Request $req)
     {
+        if($req->newName != ""){
         $user =  User::where('id', session('data')['id'])->firstOrFail();
         $user->name = $req->newName;
         $user->save();
         session('data')['name'] = $user->name;
         $req->session()->flash('newChange', 'Your Name has been updated');
+        return redirect('/profile');}
+        else {
+            $req->session()->flash('newChange', 'Name can not be empty!');
         return redirect('/profile');
+        }
     }
     function updateBio(Request $req)
     {

@@ -63,7 +63,15 @@ a{
     border-bottom-right-radius: 10px;
 
 }
-
+.error404{
+    font-family: 'Bellota-BoldItalic', sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #DE2A4D; 
+    text-shadow: #000 0.5px 0.5px 0px;
+    font-size: 250%;
+    text-align: center;
+}
 .box_header h1 {
     font-family: 'Bellota-BoldItalic', sans-serif;
     margin-top: 0;
